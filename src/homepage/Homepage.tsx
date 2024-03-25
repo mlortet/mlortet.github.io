@@ -7,16 +7,19 @@ const Homepage: React.FC = () => {
     <div className="container">
       <div className="left">
         <div className="title">
-          <h1>Titre à gauche</h1>
+          <h1>Marilyne Lortet</h1>
         </div>
         <div className="imgContainer">
-          {/* <img src="image.jpg" alt="Photo" /> */}
-          {/* <div className="overlay"></div> */}
+          <img
+            src="/images/main.jpg"
+            className="main-img"
+            alt="marilyne profile pic"
+          />
         </div>
       </div>
       <div className="right">
         <div className="content">
-          <h1>Grand Titre à droite</h1>
+          <h1>Atelier sérénité</h1>
           <p>Paragraphe en dessous du titre</p>
           <div className="buttons">
             <Button name="Galerie" link="/galerie" />
@@ -26,7 +29,7 @@ const Homepage: React.FC = () => {
           </div>
           <div className="facebook-icon">
             <a
-              href="https://www.facebook.com/VotrePageFacebook"
+              href="https://www.facebook.com/atelierserenitemarilynelortet/"
               target="_blank"
               rel="noopener noreferrer"
             >
