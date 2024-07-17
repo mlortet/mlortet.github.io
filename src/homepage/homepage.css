@@ -1,77 +1,77 @@
+/* homepage.css */
 .container {
   display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.left {
-  flex: 1;
-  width: 50%;
-  background-color: #f3d2ff;
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+  }
 }
 
+.left,
 .right {
   flex: 1;
-  height: 100%;
-  width: 50%;
-  background-color: #6495ED;
-  color: white;
   display: flex;
-  align-items: center;
   justify-content: center;
-}
-
-.title {
-  padding: 20px;
+  align-items: center;
 }
 
 .imgContainer {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.content img {
-  display: block;
-  width: 100%;
+.main-img {
+  width: 80%;
+  height: auto;
+  border-radius: 10%;
 }
 
-.overlay {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 50%;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 192, 203, 1) 100%);
+.content {
+  text-align: center;
 }
 
 .buttons {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  margin-top: 20px;
 }
 
-.buttons button {
+.buttons button,
+.buttons a {
   background-color: white;
   color: black;
-  border: 1px solid black;
-  padding: 10px 20px;
   margin: 5px;
-  cursor: pointer;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 20px;
+}
+
+.buttons a:hover {
+  background-color: #fad9d9;
 }
 
 .facebook-icon {
   margin-top: 20px;
 }
 
-/* stylise les liens en tant que boutons */
-.buttons a {
-  display: block;
-  background-color: white;
-  color: black;
-  border: 1px solid black;
-  padding: 10px 20px;
-  margin: 5px;
-  text-decoration: none;
-  border-radius: 20px;
+h1 {
+  font-family: "Homemade Apple";
+  font-weight: 400;
+  font-style: normal;
+  color: rgba(7, 7, 7, 0.747);
 }
 
-.buttons a:hover {
-  background-color: lightgray;
+.nameTitle {
+  padding-bottom: 50px;
+}
+
+.contentTitle {
+  min-width: 30%;
 }
