@@ -1,47 +1,64 @@
+/* homepage.css */
 .container {
   display: flex;
+  flex-direction: column;
   height: 100%;
 }
 
-.left {
-  flex: 1;
-  height: auto;
-  width: 50%;
-  background-color: #FAD9D9;
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+  }
 }
 
+.left,
 .right {
   flex: 1;
-  height: 100%;
-  width: 50%;
-  color: white;
   display: flex;
-  align-items: center;
   justify-content: center;
-  position: relative;
-  /* Add relative position ? */
+  align-items: center;
 }
 
-.right::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, #a4bdec, #FAD9D9);
-  filter: blur(50px);
-  z-index: -1;
+.imgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-img {
+  width: 80%;
+  height: auto;
+  border-radius: 10%;
 }
 
 .content {
-  position: relative;
-  z-index: 1;
+  text-align: center;
 }
 
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
+}
 
-.title {
-  padding: 20px;
+.buttons button,
+.buttons a {
+  background-color: white;
+  color: black;
+  margin: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 20px;
+}
+
+.buttons a:hover {
+  background-color: #fad9d9;
+}
+
+.facebook-icon {
+  margin-top: 20px;
 }
 
 h1 {
@@ -51,49 +68,10 @@ h1 {
   color: rgba(7, 7, 7, 0.747);
 }
 
-.imgContainer {
-  position: relative;
+.nameTitle {
+  padding-bottom: 50px;
 }
 
-.main-img {
-  width: 250px;
-  height: 500px;
-}
-
-.content img {
-  display: block;
-  width: 100%;
-}
-
-.buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  text-align: center;
-}
-
-.buttons button {
-  background-color: white;
-  color: black;
-  flex-grow: 1;
-  margin: 5px;
-  cursor: pointer;
-}
-
-.facebook-icon {
-  margin-top: 20px;
-}
-
-.buttons a {
-  display: block;
-  background-color: white;
-  color: black;
-  padding: 10px 50px;
-  margin: 5px;
-  text-decoration: none;
-  border-radius: 20px;
-}
-
-.buttons a:hover {
-  background-color: #FAD9D9;
+.contentTitle {
+  min-width: 30%;
 }
