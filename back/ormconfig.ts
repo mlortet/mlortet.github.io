@@ -1,9 +1,10 @@
 import { DataSource } from "typeorm";
-import { User } from "./entities/User";
+import { Admin } from "./entities/Admin";
 
 export const AppDataSource = new DataSource({
   type: "sqlite",
-  database: ":memory:", // Utilisation de la base de données en mémoire pour les tests
-  entities: [User],
-  synchronize: true, // Crée automatiquement les tables basées sur les entités
+  database: "./db.sqlite", // Base de données SQLite locale
+  entities: [Admin],
+  synchronize: true, // Crée les tables automatiquement
+  logging: true,
 });
