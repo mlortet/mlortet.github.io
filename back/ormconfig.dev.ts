@@ -3,8 +3,8 @@ import { Admin } from "./entities/Admin";
 
 export const AppDataSource = new DataSource({
   type: "sqlite",
-  database: "./db.sqlite", // Base de données SQLite locale
+  database: "./db.sqlite",
   entities: [Admin],
-  synchronize: true, // Crée les tables automatiquement
+  synchronize: true,
   logging: true,
 });

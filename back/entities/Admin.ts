@@ -12,7 +12,6 @@ export class Admin {
   @Column("varchar")
   password!: string;
 
-  // Avant d'insérer un admin, on hache le mot de passe
   @BeforeInsert()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, 10);
