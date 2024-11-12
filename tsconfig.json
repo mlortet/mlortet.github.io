@@ -19,5 +19,5 @@
     "experimentalDecorators": true,
     "outDir": "./dist"
   },
-  "include": ["src", "back/**/*"]
+  "include": ["src", "back/**/*", "backend"]
 }
