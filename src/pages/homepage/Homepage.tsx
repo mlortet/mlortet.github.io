@@ -5,6 +5,7 @@ import {
   Button as MuiButton,
   Link as MuiLink,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import "./homepage.css";
 
 const Homepage: React.FC = () => {
@@ -73,18 +74,18 @@ const Homepage: React.FC = () => {
             alignItems="center"
             mt={2}
           >
-            <MuiButton variant="contained" href="/galerie">
-              Galerie
-            </MuiButton>
-            <MuiButton variant="contained" href="/articles">
-              Articles
-            </MuiButton>
-            <MuiButton variant="contained" href="/contact">
-              Contact
-            </MuiButton>
-            <MuiButton variant="contained" href="/soins">
-              Soins
-            </MuiButton>
+            <Link to="/galerie">
+              <MuiButton variant="contained">Galerie</MuiButton>
+            </Link>
+            <Link to="/articles">
+              <MuiButton variant="contained">Articles</MuiButton>
+            </Link>
+            <Link to="/contact">
+              <MuiButton variant="contained">Contact</MuiButton>
+            </Link>
+            <Link to="/soins">
+              <MuiButton variant="contained">Soins</MuiButton>
+            </Link>
           </Box>
           <Box className="facebook-icon" mt={2}>
             <MuiLink
