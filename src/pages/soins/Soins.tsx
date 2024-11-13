@@ -24,13 +24,7 @@ const Soins: React.FC = () => {
         gap={2}
         p={2}
         bgcolor="#FAD9D9"
-      >
-        {/* Remplacer ces images par celles du dossier public */}
-        <img src="/images/image1.jpg" alt="Image 1" className="gallery-image" />
-        <img src="/images/image2.jpg" alt="Image 2" className="gallery-image" />
-        <img src="/images/image3.jpg" alt="Image 3" className="gallery-image" />
-        <img src="/images/image4.jpg" alt="Image 4" className="gallery-image" />
-      </Box>
+      ></Box>
 
       <Box
         flex={1}

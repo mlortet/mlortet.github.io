@@ -25,11 +25,36 @@ const Contact: React.FC = () => {
         p={2}
         bgcolor="#FAD9D9"
       >
-        {/* Remplacer ces images par celles du dossier public */}
-        <img src="/images/image1.jpg" alt="Image 1" className="gallery-image" />
-        <img src="/images/image2.jpg" alt="Image 2" className="gallery-image" />
-        <img src="/images/image3.jpg" alt="Image 3" className="gallery-image" />
-        <img src="/images/image4.jpg" alt="Image 4" className="gallery-image" />
+        <Box
+          className="contact-left"
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="flex-start"
+          p={2}
+        >
+          <Box display="flex" alignItems="center" mb={2}>
+            <img
+              src="/images/map-marker_5074102.svg"
+              alt="Location"
+              width="20"
+              height="20"
+              style={{ marginRight: "8px" }}
+            />
+            <Typography variant="body1">Villemur</Typography>
+          </Box>
+          <Box mb={2}>
+            <Typography variant="body1">
+              Email:{" "}
+              <a href="mailto:m.lortet@wanadoo.fr">m.lortet@wanadoo.fr</a>
+            </Typography>
+          </Box>
+          <Box mb={2}>
+            <Typography variant="body1">
+              Téléphone: <a href="tel:0621953683">0621953683</a>
+            </Typography>
+          </Box>
+        </Box>
       </Box>
 
       <Box

@@ -6,9 +6,27 @@ import {
   Link as MuiLink,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import ArticleCard from "./ArticleCard";
 import "./articles.css";
 
 const Articles: React.FC = () => {
+  // Exemple de données d'articles
+  const articles = [
+    {
+      title: "Article 1",
+      content: "Aperçu du contenu de l'article 1.",
+      imageUrl: "/images/article1.jpg",
+    },
+    {
+      title: "Article 2",
+      content: "Aperçu du contenu de l'article 2.",
+    },
+    {
+      title: "Article 3",
+      content: "Aperçu du contenu de l'article 3.",
+    },
+  ];
+
   return (
     <Box
       display="flex"
@@ -19,19 +37,23 @@ const Articles: React.FC = () => {
         flex={1}
         height="100%"
         width={{ xs: "100%", md: "50%" }}
-        display="grid"
-        gridTemplateColumns="repeat(auto-fill, minmax(200px, 1fr))"
-        gap={2}
+        display="flex"
+        flexDirection="column"
         p={2}
         bgcolor="#FAD9D9"
+        overflow="auto"
       >
-        {/* Remplacer ces images par celles du dossier public */}
-        <img src="/images/image1.jpg" alt="Image 1" className="gallery-image" />
-        <img src="/images/image2.jpg" alt="Image 2" className="gallery-image" />
-        <img src="/images/image3.jpg" alt="Image 3" className="gallery-image" />
-        <img src="/images/image4.jpg" alt="Image 4" className="gallery-image" />
+        {articles.map((article, index) => (
+          <ArticleCard
+            key={index}
+            title={article.title}
+            content={article.content}
+            imageUrl={article.imageUrl}
+          />
+        ))}
       </Box>
 
+      {/* Colonne à droite */}
       <Box
         flex={1}
         height="100%"
