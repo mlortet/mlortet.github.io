@@ -40,7 +40,7 @@
     "typescript": "^5.6.3",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://melissaolas.github.io/atelierserenite",
+  "homepage": "https://melissaolas.github.io/atelier-serenite",
   "scripts": {
     "start": "react-scripts start",
     "start:backend": "npx tsx back/index.ts",
