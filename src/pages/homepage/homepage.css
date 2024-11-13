@@ -1,4 +1,3 @@
-/* homepage.css */
 .container {
   display: flex;
   flex-direction: column;
@@ -26,9 +25,11 @@
 }
 
 .main-img {
-  width: 80%;
+  width: 90%;
   height: auto;
+  max-height: 100vh;
   border-radius: 10%;
+  margin: auto 0;
 }
 
 .content {
@@ -58,6 +59,8 @@
 }
 
 .facebook-icon {
+  display: flex;
+  justify-content: center;
   margin-top: 20px;
 }
 
@@ -66,12 +69,25 @@ h1 {
   font-weight: 400;
   font-style: normal;
   color: rgba(7, 7, 7, 0.747);
+  font-size: 4rem !important;
 }
 
 .nameTitle {
-  padding-bottom: 50px;
+  font-size: 3rem !important;
+  padding-bottom: 30px;
 }
 
 .contentTitle {
   min-width: 30%;
+}
+
+.nameTitle,
+.contentTitle,
+p {
+  color: rgba(7, 7, 7, 0.747);
+  padding-bottom: inherit;
+}
+
+p {
+  font-size: 2rem;
 }
