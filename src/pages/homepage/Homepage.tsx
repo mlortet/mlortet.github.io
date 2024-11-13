@@ -74,18 +74,18 @@ const Homepage: React.FC = () => {
             alignItems="center"
             mt={2}
           >
-            <Link to="/galerie">
-              <MuiButton variant="contained">Galerie</MuiButton>
-            </Link>
-            <Link to="/articles">
-              <MuiButton variant="contained">Articles</MuiButton>
-            </Link>
-            <Link to="/contact">
-              <MuiButton variant="contained">Contact</MuiButton>
-            </Link>
-            <Link to="/soins">
-              <MuiButton variant="contained">Soins</MuiButton>
-            </Link>
+            <MuiButton variant="contained" component={Link} to="/galerie">
+              Galerie
+            </MuiButton>
+            <MuiButton variant="contained" component={Link} to="/articles">
+              Articles
+            </MuiButton>
+            <MuiButton variant="contained" component={Link} to="/contact">
+              Contact
+            </MuiButton>
+            <MuiButton variant="contained" component={Link} to="/soins">
+              Soins
+            </MuiButton>
           </Box>
           <Box className="facebook-icon" mt={2}>
             <MuiLink
