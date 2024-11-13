@@ -20,7 +20,6 @@ const Login: React.FC = () => {
     setLoading(true);
     setError(null);
 
-    // Fonction asynchrone encapsulée
     function submitForm() {
       axios
         .post("http://localhost:3000/login", { email, password })
