@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "commonjs",
+  "homepage": "https://melissaolas.github.io/#",
   "proxy": "http://localhost:3001",
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -39,7 +40,6 @@
     "typescript": "^5.6.3",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://melissaolas.github.io/#",
   "scripts": {
     "start": "react-scripts start",
     "start:backend": "npx tsx back/index.ts",
