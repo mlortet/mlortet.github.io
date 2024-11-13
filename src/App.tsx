@@ -1,7 +1,10 @@
 import React from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import Homepage from "./pages/homepage/Homepage";
-// import Login from "./pages/admin/login/Login";
+import Galerie from "./pages/galerie/Galerie";
+import Articles from "./pages/articles/Articles";
+import Contact from "./pages/contact/Contact";
+import Soins from "./pages/soins/Soins";
 import TestLogin from "./pages/admin/login/TestLogin";
 import AdminDashboard from "./pages/admin/dashboard/AdminDashboard";
 import CreateArticle from "./pages/admin/dashboard/CreateArticle";
@@ -12,8 +15,11 @@ const App: React.FC = () => {
     <HashRouter>
       <Routes>
         <Route path="/" element={<Homepage />} />
+        <Route path="/galerie" element={<Galerie />} />
+        <Route path="/articles" element={<Articles />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/soins" element={<Soins />} />
         <Route path="/login" element={<TestLogin />} />
-        {/* <Route path="/admin/login" element={<Login />} /> */}
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/create-article" element={<CreateArticle />} />
         <Route path="/admin/manage-articles" element={<ManageArticles />} />
