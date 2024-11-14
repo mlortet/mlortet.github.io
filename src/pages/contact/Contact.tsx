@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import "./contact.css";
+import ButtonList from "../../buttons/ButtonList";
 
 const Contact: React.FC = () => {
   return (
@@ -82,55 +83,7 @@ const Contact: React.FC = () => {
           }}
         />
         <Box position="relative" zIndex={1} width="100%" textAlign="center">
-          <Box
-            className="buttons"
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            mt={2}
-            mb={3}
-          >
-            <MuiButton variant="contained" component={Link} to="/">
-              Accueil
-            </MuiButton>
-            <MuiButton variant="contained" component={Link} to="/galerie">
-              Galerie
-            </MuiButton>
-            <MuiButton variant="contained" component={Link} to="/actualites">
-              Actualités
-            </MuiButton>
-          </Box>
-
-          <Typography variant="h1" className="nameTitle">
-            Contact
-          </Typography>
-
-          <Box
-            className="buttons"
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            mt={2}
-          >
-            <MuiButton variant="contained" component={Link} to="/soins">
-              Soins
-            </MuiButton>
-          </Box>
-
-          <Box className="facebook-icon" mt={2}>
-            <MuiLink
-              href="https://www.facebook.com/atelierserenitemarilynelortet/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="/images/fb_icon.svg"
-                alt="Facebook"
-                width="24"
-                height="24"
-              />
-            </MuiLink>
-          </Box>
+          <ButtonList />
         </Box>
       </Box>
     </Box>

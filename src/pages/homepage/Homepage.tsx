@@ -5,8 +5,8 @@ import {
   Button as MuiButton,
   Link as MuiLink,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import "./homepage.css";
+import ButtonList from "../../buttons/ButtonList";
 
 const Homepage: React.FC = () => {
   return (
@@ -58,7 +58,7 @@ const Homepage: React.FC = () => {
           position="relative"
           zIndex={1}
           p={2}
-          textAlign={{ xs: "center", md: "left" }}
+          textAlign={{ xs: "center", md: "center" }}
         >
           <Typography variant="h1" className="nameTitle">
             Marilyne Lortet
@@ -70,40 +70,7 @@ const Homepage: React.FC = () => {
             Atelier de sophro-relaxation, soins énergétiques et art-thérapie par
             la peinture spontanée et le mandala
           </Typography>
-          <Box
-            className="buttons"
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            mt={2}
-          >
-            <MuiButton variant="contained" component={Link} to="/galerie">
-              Galerie
-            </MuiButton>
-            <MuiButton variant="contained" component={Link} to="/actualites">
-              Actualités
-            </MuiButton>
-            <MuiButton variant="contained" component={Link} to="/contact">
-              Contact
-            </MuiButton>
-            <MuiButton variant="contained" component={Link} to="/soins">
-              Soins
-            </MuiButton>
-          </Box>
-          <Box className="facebook-icon" mt={2}>
-            <MuiLink
-              href="https://www.facebook.com/atelierserenitemarilynelortet/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="/images/fb_icon.svg"
-                alt="Facebook"
-                width="24"
-                height="24"
-              />
-            </MuiLink>
-          </Box>
+          <ButtonList />
         </Box>
       </Box>
     </Box>

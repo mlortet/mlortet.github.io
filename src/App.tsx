@@ -9,22 +9,32 @@ import TestLogin from "./pages/admin/login/TestLogin";
 import AdminDashboard from "./pages/admin/dashboard/AdminDashboard";
 import CreateArticle from "./pages/admin/dashboard/CreateArticle";
 import ManageArticles from "./pages/admin/dashboard/ManageArticles";
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+  body, h1, h2, h3, h4, h5, h6, p, a, span, div {
+    color: #365F9F !important;
+  }
+`;
 
 const App: React.FC = () => {
   return (
-    <HashRouter>
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/galerie" element={<Galerie />} />
-        <Route path="/actualites" element={<Actualites />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/soins" element={<Soins />} />
-        <Route path="/login" element={<TestLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="/admin/create-article" element={<CreateArticle />} />
-        <Route path="/admin/manage-articles" element={<ManageArticles />} />
-      </Routes>
-    </HashRouter>
+    <>
+      <GlobalStyle />
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/galerie" element={<Galerie />} />
+          <Route path="/actualites" element={<Actualites />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/soins" element={<Soins />} />
+          <Route path="/login" element={<TestLogin />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/create-article" element={<CreateArticle />} />
+          <Route path="/admin/manage-articles" element={<ManageArticles />} />
+        </Routes>
+      </HashRouter>
+    </>
   );
 };
 
