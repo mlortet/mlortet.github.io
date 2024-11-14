@@ -96,8 +96,8 @@ const Contact: React.FC = () => {
             <MuiButton variant="contained" component={Link} to="/galerie">
               Galerie
             </MuiButton>
-            <MuiButton variant="contained" component={Link} to="/articles">
-              Articles
+            <MuiButton variant="contained" component={Link} to="/actualites">
+              Actualités
             </MuiButton>
           </Box>
 

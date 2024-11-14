@@ -132,8 +132,8 @@ const Galerie: React.FC = () => {
             alignItems="center"
             mt={2}
           >
-            <MuiButton variant="contained" component={Link} to="/articles">
-              Articles
+            <MuiButton variant="contained" component={Link} to="/actualites">
+              Actualités
             </MuiButton>
             <MuiButton variant="contained" component={Link} to="/contact">
               Contact

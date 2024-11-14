@@ -2,7 +2,7 @@ import React from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import Homepage from "./pages/homepage/Homepage";
 import Galerie from "./pages/galerie/Galerie";
-import Articles from "./pages/articles/Articles";
+import Actualites from "./pages/actualites/Actualites";
 import Contact from "./pages/contact/Contact";
 import Soins from "./pages/soins/Soins";
 import TestLogin from "./pages/admin/login/TestLogin";
@@ -16,7 +16,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/galerie" element={<Galerie />} />
-        <Route path="/articles" element={<Articles />} />
+        <Route path="/actualités" element={<Actualites />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/soins" element={<Soins />} />
         <Route path="/login" element={<TestLogin />} />

@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import ArticleCard from "./ArticleCard";
 import "./articles.css";
 
-const Articles: React.FC = () => {
+const Actualites: React.FC = () => {
   // Exemple de données d'articles
   const articles = [
     {
@@ -96,7 +96,7 @@ const Articles: React.FC = () => {
           </Box>
 
           <Typography variant="h1" className="nameTitle">
-            Articles
+            Actualités
           </Typography>
 
           <Box
@@ -134,4 +134,4 @@ const Articles: React.FC = () => {
   );
 };
 
-export default Articles;
+export default Actualites;
