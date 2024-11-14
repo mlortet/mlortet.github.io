@@ -26,7 +26,7 @@ const Homepage: React.FC = () => {
       >
         <Box className="imgContainer">
           <img
-            src="/images/main.jpg"
+            src="/images/homepage-img.jpg"
             className="main-img"
             alt="marilyne profile pic"
           />
