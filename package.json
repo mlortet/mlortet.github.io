@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "commonjs",
-  "homepage": "https://melissaolas.github.io/",
+  "homepage": "https://mlortet.github.io/",
   "proxy": "http://localhost:3001",
   "dependencies": {
     "@emotion/react": "^11.11.4",
