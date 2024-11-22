@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Typography,
-  Button as MuiButton,
-  Link as MuiLink,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import "./homepage.css";
 import ButtonList from "../../buttons/ButtonList";
 
@@ -13,16 +8,16 @@ const Homepage: React.FC = () => {
     <Box
       display="flex"
       flexDirection={{ xs: "column", md: "row" }}
-      height="100%"
+      height="auto"
+      background-color="red"
     >
       <Box
         flex={1}
-        height={{ xs: "auto", md: "100%" }}
-        width={{ xs: "100%", md: "50%" }}
         bgcolor="#FAD9D9"
         display="flex"
         justifyContent="center"
         alignItems="center"
+        className="image-section"
       >
         <Box className="imgContainer">
           <img
@@ -32,15 +27,14 @@ const Homepage: React.FC = () => {
           />
         </Box>
       </Box>
+
       <Box
         flex={1}
-        height="100%"
-        width={{ xs: "100%", md: "50%" }}
-        color="white"
         display="flex"
         alignItems="center"
         justifyContent="center"
         position="relative"
+        className="text-section"
       >
         <Box
           sx={{
@@ -54,12 +48,7 @@ const Homepage: React.FC = () => {
             zIndex: -1,
           }}
         />
-        <Box
-          position="relative"
-          zIndex={1}
-          p={2}
-          textAlign={{ xs: "center", md: "center" }}
-        >
+        <Box position="relative" zIndex={1} p={2}>
           <Typography variant="h1" className="nameTitle">
             Marilyne Lortet
           </Typography>
