@@ -32,19 +32,22 @@
   text-align: center;
 }
 
-/* Responsive styles */
+.descr {
+  text-align: center;
+}
+
 @media (min-width: 768px) {
   .container {
     flex-direction: row;
   }
 
   .nameTitle {
-    font-size: 2rem; /* Taille desktop */
+    font-size: 2rem;
     text-align: left;
   }
 
   .contentTitle {
-    font-size: 6rem; /* Taille desktop */
+    font-size: 6rem;
     text-align: left;
   }
 
@@ -54,7 +57,7 @@
 
   .text-section {
     height: 100vh;
-    padding: 40px; /* Ajout d'espacement autour du texte */
+    padding: 40px;
   }
 }
 
@@ -63,7 +66,6 @@ p {
   color: rgba(7, 7, 7, 0.747);
 }
 
-/* Boutons */
 .buttons {
   display: flex;
   flex-direction: column;

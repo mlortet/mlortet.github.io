@@ -55,7 +55,7 @@ const Homepage: React.FC = () => {
           <Typography variant="h1" className="contentTitle">
             Atelier sérénité
           </Typography>
-          <Typography paragraph>
+          <Typography paragraph className="descr">
             Atelier de sophro-relaxation, soins énergétiques et art-thérapie par
             la peinture spontanée et le mandala
           </Typography>
