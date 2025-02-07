@@ -20,23 +20,42 @@ const Login: React.FC = () => {
     setLoading(true);
     setError(null);
 
-    function submitForm() {
-      axios
-        .post("http://localhost:3000/login", { email, password })
-        .then((response) => {
-          console.log(response.data);
-          navigate("/admin/dashboard");
-        })
-        .catch((err) => {
-          setError("Identifiants incorrects");
-          console.error(err);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
+    axios
+      // .post("https://mlortet.github.io/#/login", { email, password })
+      .post("http://localhost:3000/login", { email, password })
+      .then((response) => {
+        console.log(response.data);
+        navigate("/admin/dashboard");
+      })
+      .catch((err) => {
+        setError("Identifiants incorrects");
+        console.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
-    submitForm();
+  const handleRegister = (e: React.FormEvent): void => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    axios
+      .post("http://localhost:3000/register", { email, password }) // Remplacez par l'URL réelle
+      .then((response) => {
+        console.log(response.data);
+        alert(
+          "Compte créé avec succès. Vous pouvez maintenant vous connecter !"
+        );
+      })
+      .catch((err) => {
+        setError("Erreur lors de la création du compte");
+        console.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -149,6 +168,23 @@ const Login: React.FC = () => {
           disabled={loading}
         >
           {loading ? "Chargement..." : "Se connecter"}
+        </button>
+
+        <button
+          onClick={handleRegister}
+          style={{
+            padding: "10px 16px",
+            marginTop: "10px",
+            backgroundColor: "#fff",
+            color: "#000",
+            border: "1px solid #000",
+            width: "100%",
+            cursor: "pointer",
+            borderRadius: "4px",
+          }}
+          disabled={loading}
+        >
+          {loading ? "Chargement..." : "Créer un compte"}
         </button>
       </form>
     </div>

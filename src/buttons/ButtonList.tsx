@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { useLocation } from "react-router-dom";
 import Button from "./Buttons";
 import { Box, Link as MuiLink } from "@mui/material";
 import "./buttons.css";
@@ -11,15 +12,12 @@ const buttonData = [
   { name: "Séances de groupe", link: "/groupes" },
   { name: "Seniors", link: "/seniors" },
   { name: "Peintures vibratoires", link: "/peintures" },
-  { name: "attrape rêves", link: "/attrapereves" },
+  { name: "Attrape rêves", link: "/attrapereves" },
   { name: "Contact", link: "/contact" },
 ];
 
 const ButtonList: React.FC = () => {
-  const [selectedButton, setSelectedButton] = useState<string>("");
-  const handleButtonClick = (link: string) => {
-    setSelectedButton(link);
-  };
+  const location = useLocation(); // Récupère l'URL actuelle
 
   return (
     <>
@@ -31,7 +29,12 @@ const ButtonList: React.FC = () => {
         mt={2}
       >
         {buttonData.map((btn, index) => (
-          <Button key={index} name={btn.name} link={btn.link} className="" />
+          <Button
+            key={index}
+            name={btn.name}
+            link={btn.link}
+            isSelected={location.pathname === btn.link} // Compare l'URL actuelle
+          />
         ))}
       </Box>
       <Box className="socials-icon" mt={2}>
@@ -59,6 +62,11 @@ const ButtonList: React.FC = () => {
             height="45"
           />
         </MuiLink>
+        <Button
+          name="Inscription"
+          link="/login"
+          isSelected={location.pathname === "/login"}
+        />
       </Box>
     </>
   );

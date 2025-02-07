@@ -4,7 +4,7 @@
   "private": true,
   "type": "commonjs",
   "homepage": "https://mlortet.github.io/",
-  "proxy": "http://localhost:3001",
+  "proxy": "https://atelier-serenite-9c9alg234-mlortets-projects.vercel.app",
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
@@ -45,7 +45,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:backend": "npx tsx back/index.ts",
+    "start:backend": "npx tsx backend/index.js",
     "mongo": "node backend/index.js --ignore client",
     "start:dev": "concurrently \"npm run start\" \"npm run start:backend\"",
     "build": "react-scripts build && cp build/index.html build/404.html",

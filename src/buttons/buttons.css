@@ -4,3 +4,17 @@
   margin-top: 20px;
   align-items: center;
 }
+
+.button {
+  text-decoration: none;
+}
+
+.button .MuiButton-root {
+  transition: background-color 0.3s ease;
+}
+
+.button .MuiButton-root:hover,
+.button.selected .MuiButton-root {
+  background-color: #fad9d9;
+  color: white;
+}

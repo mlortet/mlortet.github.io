@@ -8,15 +8,25 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("mongodb://127.0.0.1:27017/user", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+require("dotenv").config();
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error("MongoDB connection error:", err));
+
+// mongoose.connect("mongodb://127.0.0.1:27017/user", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
 app.use(
   cors({
-    origin: "http://localhost:3000", // Frontend
-    methods: "GET,POST",
+    // origin: "https://mlortet.github.io/",
+    origin: "http://localhost:3000",
+    methods: "GET,POST,PUT,DELETE",
     allowedHeaders: "Content-Type,Authorization",
   })
 );
@@ -89,6 +99,26 @@ app.post("/login", (req, res) => {
       console.error("Erreur dans la récupération de l'utilisateur:", err);
       res.status(500).json({ error: err.message });
     });
+});
+
+const articlesRoutes = require("./routes/articles.routes");
+app.use("/api", articlesRoutes);
+
+app.post("/api/articles", async (req, res) => {
+  try {
+    const { title, content, imageUrl } = req.body;
+
+    if (!title || !content) {
+      return res.status(400).json({ error: "Tous les champs sont requis" });
+    }
+
+    const newArticle = new Article({ title, content, imageUrl });
+    await newArticle.save();
+
+    res.status(201).json(newArticle);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 app.listen(3001, () => {

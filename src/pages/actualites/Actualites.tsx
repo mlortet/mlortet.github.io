@@ -1,31 +1,44 @@
-import React from "react";
-import {
-  Box,
-  Typography,
-  Button as MuiButton,
-  Link as MuiLink,
-} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box } from "@mui/material";
 import ButtonList from "../../buttons/ButtonList";
 import ArticleCard from "./ArticleCard";
-import "./articles.css";
+
+type Article = {
+  title: string;
+  content: string;
+  imageUrl: string;
+};
 
 const Actualites: React.FC = () => {
-  // Exemple de données d'articles
-  const articles = [
-    {
-      title: "Article 1",
-      content: "Aperçu du contenu de l'article 1.",
-      imageUrl: "/images/article1.jpg",
-    },
-    {
-      title: "Article 2",
-      content: "Aperçu du contenu de l'article 2.",
-    },
-    {
-      title: "Article 3",
-      content: "Aperçu du contenu de l'article 3.",
-    },
-  ];
+  const [articles, setArticles] = useState<Article[]>([]);
+
+  // useEffect(() => {
+  //   const fetchArticles = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `${process.env.REACT_APP_API_URL}/articles`
+  //       );
+  //       if (!response.ok) {
+  //         throw new Error("Erreur lors du chargement des articles.");
+  //       }
+  //       const data = await response.json();
+  //       setArticles(data);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchArticles();
+  // }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/api/articles")
+      .then((response) => response.json())
+      .then((data: Article[]) => setArticles(data))
+      .catch((error) =>
+        console.error("Erreur lors du chargement des articles:", error)
+      );
+  }, []);
 
   return (
     <Box
@@ -43,14 +56,21 @@ const Actualites: React.FC = () => {
         bgcolor="#FAD9D9"
         overflow="auto"
       >
-        {articles.map((article, index) => (
-          <ArticleCard
-            key={index}
-            title={article.title}
-            content={article.content}
-            imageUrl={article.imageUrl}
-          />
-        ))}
+        {articles.length === 0 ? (
+          <p>Aucun article disponible.</p>
+        ) : (
+          articles.map((article, index) => (
+            <div key={index}>
+              <h2>{article.title}</h2>
+              <img
+                src={article.imageUrl}
+                alt={article.title}
+                style={{ width: "300px" }}
+              />
+              <p>{article.content}</p>
+            </div>
+          ))
+        )}
       </Box>
 
       {/* Colonne à droite */}

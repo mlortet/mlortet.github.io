@@ -5,13 +5,59 @@ const CreateArticle: React.FC = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [content, setContent] = useState("");
 
-  const handlePublish = () => {
-    // Logique pour enregistrer l'article (à intégrer avec le backend)
-    console.log({ title, imageUrl, content });
-    alert("Article publié avec succès !");
-    setTitle("");
-    setImageUrl("");
-    setContent("");
+  const apiUrl = process.env.REACT_APP_API_URL || "";
+
+  const handlePublish = async () => {
+    if (!title || !content) {
+      alert("Veuillez remplir le titre et le contenu.");
+      return;
+    }
+
+    const articleData: { title: string; content: string; imageUrl?: string } = {
+      title,
+      content,
+    };
+
+    if (imageUrl.trim() !== "") {
+      articleData.imageUrl = imageUrl;
+    }
+
+    try {
+      // Récupérer le token JWT depuis localStorage
+      const token = localStorage.getItem("token");
+
+      // Vérifier si un token est présent
+      if (!token) {
+        alert("Vous devez être connecté pour publier un article.");
+        return;
+      }
+
+      // Effectuer la requête POST avec l'en-tête d'authentification
+      const response = await fetch(`${apiUrl}/api/articles`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Ajouter le token JWT
+        },
+        body: JSON.stringify(articleData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de la publication de l'article.");
+      }
+
+      alert("Article publié avec succès !");
+      setTitle("");
+      setImageUrl("");
+      setContent("");
+    } catch (error) {
+      console.error(error);
+      alert("Une erreur est survenue.");
+    }
+  };
+
+  const handleClick = () => {
+    handlePublish().catch(console.error);
   };
 
   return (
@@ -49,12 +95,7 @@ const CreateArticle: React.FC = () => {
           height: "150px",
         }}
       />
-      <button
-        onClick={handlePublish}
-        style={{ padding: "10px 20px", marginTop: "10px" }}
-      >
-        Publier
-      </button>
+      <button onClick={handleClick}>Publier</button>
     </div>
   );
 };
