@@ -3,6 +3,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
+interface LoginResponse {
+  token: string;
+}
+
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,47 +19,31 @@ const Login: React.FC = () => {
     setShowPassword((prevState) => !prevState);
   };
 
-  const handleSubmit = (e: React.FormEvent): void => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
-    axios
-      // .post("https://mlortet.github.io/#/login", { email, password })
-      .post("http://localhost:3000/login", { email, password })
-      .then((response) => {
-        console.log(response.data);
-        navigate("/admin/dashboard");
-      })
-      .catch((err) => {
-        setError("Identifiants incorrects");
-        console.error(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
+    try {
+      const response = await axios.post<LoginResponse>(
+        "http://localhost:5000/login",
+        {
+          email,
+          password,
+        }
+      );
 
-  const handleRegister = (e: React.FormEvent): void => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
+      // Stocker le token JWT dans localStorage
+      localStorage.setItem("token", response.data.token);
 
-    axios
-      .post("http://localhost:3000/register", { email, password }) // Remplacez par l'URL réelle
-      .then((response) => {
-        console.log(response.data);
-        alert(
-          "Compte créé avec succès. Vous pouvez maintenant vous connecter !"
-        );
-      })
-      .catch((err) => {
-        setError("Erreur lors de la création du compte");
-        console.error(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      console.log("Connexion réussie :", response.data);
+      navigate("/admin/dashboard");
+    } catch (err) {
+      setError("Identifiants incorrects");
+      console.error("Erreur de connexion :", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -69,7 +57,7 @@ const Login: React.FC = () => {
       }}
     >
       <form
-        onSubmit={handleSubmit}
+        onSubmit={(e) => void handleSubmit(e)}
         style={{
           textAlign: "center",
           width: "350px",
@@ -168,23 +156,6 @@ const Login: React.FC = () => {
           disabled={loading}
         >
           {loading ? "Chargement..." : "Se connecter"}
-        </button>
-
-        <button
-          onClick={handleRegister}
-          style={{
-            padding: "10px 16px",
-            marginTop: "10px",
-            backgroundColor: "#fff",
-            color: "#000",
-            border: "1px solid #000",
-            width: "100%",
-            cursor: "pointer",
-            borderRadius: "4px",
-          }}
-          disabled={loading}
-        >
-          {loading ? "Chargement..." : "Créer un compte"}
         </button>
       </form>
     </div>

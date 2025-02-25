@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const UserModel = require("./models/User");
+const Article = require("./models/Article");
 
 const app = express();
 app.use(express.json());
@@ -59,46 +60,48 @@ app.post("/register", (req, res) => {
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 
-app.post("/login", (req, res) => {
+const jwt = require("jsonwebtoken");
+
+app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
     return res.status(400).json({ error: "Veuillez remplir tous les champs" });
   }
 
-  UserModel.findOne({ email })
-    .then((user) => {
-      if (!user) {
-        console.log("Aucun utilisateur trouvé avec cet email:", email);
-        return res.status(400).json({ error: "Identifiants incorrects" });
-      }
+  try {
+    const user = await UserModel.findOne({ email });
 
-      console.log("Utilisateur trouvé:", user);
+    if (!user) {
+      console.log("Aucun utilisateur trouvé avec cet email:", email);
+      return res.status(400).json({ error: "Identifiants incorrects" });
+    }
 
-      bcrypt.compare(password, user.password, (err, isMatch) => {
-        if (err) {
-          console.error(
-            "Erreur lors de la comparaison des mots de passe:",
-            err
-          );
-          return res
-            .status(500)
-            .json({ error: "Erreur de comparaison de mot de passe" });
-        }
+    console.log("Utilisateur trouvé:", user);
 
-        console.log("Le mot de passe correspond-il ?", isMatch);
+    const isMatch = await bcrypt.compare(password, user.password);
+    console.log("Le mot de passe correspond-il ?", isMatch);
 
-        if (!isMatch) {
-          return res.status(400).json({ error: "Identifiants incorrects" });
-        }
+    if (!isMatch) {
+      return res.status(400).json({ error: "Identifiants incorrects" });
+    }
 
-        res.json({ message: "Connexion réussie", user });
-      });
-    })
-    .catch((err) => {
-      console.error("Erreur dans la récupération de l'utilisateur:", err);
-      res.status(500).json({ error: err.message });
+    // Génération du token JWT
+    const token = jwt.sign(
+      { id: user._id, email: user.email },
+      process.env.JWT_SECRET, // Clé secrète stockée dans le fichier .env
+      { expiresIn: "1h" } // Expiration du token (1 heure)
+    );
+
+    res.json({
+      message: "Connexion réussie",
+      token, // Renvoi uniquement le token
+      user: { id: user._id, email: user.email }, // Ne renvoie pas le password
     });
+  } catch (err) {
+    console.error("Erreur dans la récupération de l'utilisateur:", err);
+    res.status(500).json({ error: err.message });
+  }
 });
 
 const articlesRoutes = require("./routes/articles.routes");
