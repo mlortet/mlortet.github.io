@@ -12,24 +12,24 @@ type Article = {
 const Actualites: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
 
-  // useEffect(() => {
-  //   const fetchArticles = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `${process.env.REACT_APP_API_URL}/articles`
-  //       );
-  //       if (!response.ok) {
-  //         throw new Error("Erreur lors du chargement des articles.");
-  //       }
-  //       const data = await response.json();
-  //       setArticles(data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL}/articles`
+        );
+        if (!response.ok) {
+          throw new Error("Erreur lors du chargement des articles.");
+        }
+        const data = await response.json();
+        setArticles(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  //   fetchArticles();
-  // }, []);
+    fetchArticles();
+  }, []);
 
   useEffect(() => {
     fetch("http://localhost:3001/api/articles")
