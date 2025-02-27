@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 interface LoginResponse {
   token: string;
@@ -25,13 +28,11 @@ const Login: React.FC = () => {
     setError(null);
 
     try {
-      const response = await axios.post<LoginResponse>(
-        `${process.env.REACT_APP_API_URL}/login`,
-        {
-          email,
-          password,
-        }
-      );
+      const apiUrl = process.env.REACT_APP_API_URL || "";
+      const response = await axios.post<LoginResponse>(`${apiUrl}/login`, {
+        email,
+        password,
+      });
 
       // Stocker le token JWT dans localStorage
       localStorage.setItem("token", response.data.token);

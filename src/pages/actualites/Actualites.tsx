@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import ButtonList from "../../buttons/ButtonList";
 import ArticleCard from "./ArticleCard";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 type Article = {
   title: string;
@@ -21,7 +24,7 @@ const Actualites: React.FC = () => {
         if (!response.ok) {
           throw new Error("Erreur lors du chargement des articles.");
         }
-        const data = await response.json();
+        const data: Article[] = await response.json();
         setArticles(data);
       } catch (error) {
         console.error(error);
@@ -32,12 +35,17 @@ const Actualites: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/articles")
-      .then((response) => response.json())
-      .then((data: Article[]) => setArticles(data))
-      .catch((error) =>
-        console.error("Erreur lors du chargement des articles:", error)
-      );
+    const fetchArticles = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/api/articles");
+        const data: Article[] = await response.json();
+        setArticles(data);
+      } catch (error) {
+        console.error("Erreur lors du chargement des articles:", error);
+      }
+    };
+
+    fetchArticles(); // Assure-toi que la fonction asynchrone est bien appelée
   }, []);
 
   return (
