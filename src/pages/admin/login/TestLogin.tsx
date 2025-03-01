@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 interface LoginResponse {
   token: string;

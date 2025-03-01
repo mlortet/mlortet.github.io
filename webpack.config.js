@@ -5,16 +5,22 @@ const serverConfig = {
     path: path.resolve(__dirname, "dist"),
     filename: "lib.node.js",
   },
-  //…
 };
 
 const clientConfig = {
-  target: "web", // <=== can be omitted as default is 'web'
+  target: "web",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "lib.js",
   },
-  //…
+};
+
+module.exports = {
+  resolve: {
+    fallback: {
+      path: require.resolve("path-browserify"),
+    },
+  },
 };
 
 module.exports = [serverConfig, clientConfig];

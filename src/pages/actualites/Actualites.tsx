@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import ButtonList from "../../buttons/ButtonList";
 import ArticleCard from "./ArticleCard";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 type Article = {
   title: string;
