@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import ButtonList from "../../buttons/ButtonList";
-import ArticleCard from "./ArticleCard";
 
 type Article = {
   title: string;
@@ -15,34 +14,21 @@ const Actualites: React.FC = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/articles`
-        );
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3001";
+        const response = await fetch(`${apiUrl}/api/articles`);
+
         if (!response.ok) {
           throw new Error("Erreur lors du chargement des articles.");
         }
-        const data: Article[] = await response.json();
-        setArticles(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
-    fetchArticles();
-  }, []);
-
-  useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        const response = await fetch("http://localhost:3001/api/articles");
-        const data: Article[] = await response.json();
+        const data = (await response.json()) as Article[];
         setArticles(data);
       } catch (error) {
         console.error("Erreur lors du chargement des articles:", error);
       }
     };
 
-    fetchArticles(); // Assure-toi que la fonction asynchrone est bien appelée
+    void fetchArticles();
   }, []);
 
   return (
@@ -51,6 +37,7 @@ const Actualites: React.FC = () => {
       flexDirection={{ xs: "column", md: "row" }}
       height="100%"
     >
+      {/* Colonne de gauche */}
       <Box
         flex={1}
         height="100%"
