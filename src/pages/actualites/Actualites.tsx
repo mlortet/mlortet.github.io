@@ -15,7 +15,7 @@ const Actualites: React.FC = () => {
     const fetchArticles = async () => {
       try {
         const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3001";
-        const response = await fetch(`${apiUrl}/api/articles`);
+        const response = await fetch(`${apiUrl}api/articles`);
 
         if (!response.ok) {
           throw new Error("Erreur lors du chargement des articles.");
