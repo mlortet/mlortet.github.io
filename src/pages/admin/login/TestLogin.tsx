@@ -29,13 +29,13 @@ const Login: React.FC = () => {
       const cleanApiUrl = apiUrl.endsWith("/") ? apiUrl.slice(0, -1) : apiUrl;
       console.log("API URL utilisée :", cleanApiUrl);
 
-      const response = await axios.post(`${cleanApiUrl}/login`, {
+      const response = await axios.post<LoginResponse>(`${cleanApiUrl}/login`, {
         email,
         password,
       });
 
       // Stocker le token JWT dans localStorage
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("token", response.data.token || "");
 
       console.log("Connexion réussie :", response.data);
       navigate("/admin/dashboard");
