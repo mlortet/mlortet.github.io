@@ -25,7 +25,7 @@ const Login: React.FC = () => {
     setError(null);
 
     try {
-      const apiUrl = process.env.REACT_APP_API_URL || "";
+      const apiUrl = process.env.REACT_APP_API_URL?.replace(/\/$/, "") || "";
       const response = await axios.post<LoginResponse>(`${apiUrl}/login`, {
         email,
         password,
