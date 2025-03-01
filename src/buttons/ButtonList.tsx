@@ -62,11 +62,6 @@ const ButtonList: React.FC = () => {
             height="45"
           />
         </MuiLink>
-        <Button
-          name="Inscription"
-          link="/login"
-          isSelected={location.pathname === "/login"}
-        />
       </Box>
     </>
   );
