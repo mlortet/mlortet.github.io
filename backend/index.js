@@ -4,12 +4,22 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const UserModel = require("./models/User");
 const Article = require("./models/Article");
+const authMiddleware = require("./middlewares/authMiddleware");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+// Vérifie que JWT_SECRET est bien chargé
+if (!process.env.JWT_SECRET) {
+  console.error("ERREUR : JWT_SECRET n'est pas défini !");
+  process.exit(1); // Arrête l'application si la clé est manquante
+} else {
+  console.log("✅ Clé secrète chargée :", process.env.JWT_SECRET);
+}
 
 mongoose
   .connect(process.env.MONGO_URI, {
@@ -26,35 +36,23 @@ app.use(
   })
 );
 
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
     return res.status(400).json({ error: "Veuillez remplir tous les champs" });
   }
 
-  UserModel.findOne({ email })
-    .then((existingUser) => {
-      if (existingUser) {
-        return res.status(400).json({ error: "L'utilisateur existe déjà" });
-      }
+  const existingUser = await UserModel.findOne({ email });
+  if (existingUser) {
+    return res.status(400).json({ error: "L'utilisateur existe déjà" });
+  }
 
-      bcrypt.hash(password, 10, (err, hashedPassword) => {
-        if (err) {
-          return res
-            .status(500)
-            .json({ error: "Erreur de hachage du mot de passe" });
-        }
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const user = await UserModel.create({ email, password: hashedPassword });
 
-        UserModel.create({ email, password: hashedPassword })
-          .then((user) => res.json(user))
-          .catch((err) => res.status(500).json({ error: err.message }));
-      });
-    })
-    .catch((err) => res.status(500).json({ error: err.message }));
+  res.json(user);
 });
-
-const jwt = require("jsonwebtoken");
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -65,17 +63,11 @@ app.post("/login", async (req, res) => {
 
   try {
     const user = await UserModel.findOne({ email });
-
     if (!user) {
-      console.log("Aucun utilisateur trouvé avec cet email:", email);
       return res.status(400).json({ error: "Identifiants incorrects" });
     }
 
-    console.log("Utilisateur trouvé:", user);
-
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log("Le mot de passe correspond-il ?", isMatch);
-
     if (!isMatch) {
       return res.status(400).json({ error: "Identifiants incorrects" });
     }
@@ -83,17 +75,12 @@ app.post("/login", async (req, res) => {
     // Génération du token JWT
     const token = jwt.sign(
       { id: user._id, email: user.email },
-      process.env.JWT_SECRET, // Clé secrète stockée dans le fichier .env
-      { expiresIn: "5h" } // Expiration du token (5 heures)
+      process.env.JWT_SECRET, // Clé secrète stockée dans .env
+      { expiresIn: "5h" }
     );
 
-    res.json({
-      message: "Connexion réussie",
-      token, // Renvoi uniquement le token
-      user: { id: user._id, email: user.email }, // Ne renvoie pas le password
-    });
+    res.json({ message: "Connexion réussie", token });
   } catch (err) {
-    console.error("Erreur dans la récupération de l'utilisateur:", err);
     res.status(500).json({ error: err.message });
   }
 });
@@ -101,7 +88,7 @@ app.post("/login", async (req, res) => {
 const articlesRoutes = require("./routes/articles.routes");
 app.use("/api", articlesRoutes);
 
-app.post("/api/articles", async (req, res) => {
+app.post("/api/articles", authMiddleware, async (req, res) => {
   try {
     const { title, content, imageUrl } = req.body;
 

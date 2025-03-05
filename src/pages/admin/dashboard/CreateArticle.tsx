@@ -5,8 +5,7 @@ const CreateArticle: React.FC = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [content, setContent] = useState("");
 
-  const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3001";
-  const cleanApiUrl = apiUrl.endsWith("/") ? apiUrl.slice(0, -1) : apiUrl;
+  const apiUrl = process.env.REACT_APP_API_URL || "";
 
   const handlePublish = async () => {
     if (!title || !content) {
@@ -27,24 +26,25 @@ const CreateArticle: React.FC = () => {
       // Récupérer le token JWT depuis localStorage
       const token = localStorage.getItem("token");
 
-      // Vérifier si un token est présent
       if (!token) {
         alert("Vous devez être connecté pour publier un article.");
         return;
       }
 
-      // Effectuer la requête POST avec l'en-tête d'authentification
-      const response = await fetch(`${cleanApiUrl}/api/articles`, {
+      const response = await fetch(`${apiUrl}/api/articles`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Ajouter le token JWT
+          Authorization: `Bearer ${token}`, // Ajoute le token JWT ici
         },
         body: JSON.stringify(articleData),
       });
 
       if (!response.ok) {
-        throw new Error("Erreur lors de la publication de l'article.");
+        const errorData = await response.json();
+        throw new Error(
+          errorData.error || "Erreur lors de la publication de l'article."
+        );
       }
 
       alert("Article publié avec succès !");
@@ -53,12 +53,13 @@ const CreateArticle: React.FC = () => {
       setContent("");
     } catch (error) {
       console.error(error);
-      alert("Une erreur est survenue.");
-    }
-  };
 
-  const handleClick = () => {
-    handlePublish().catch(console.error);
+      if (error instanceof Error) {
+        alert(error.message);
+      } else {
+        alert("Une erreur inconnue est survenue.");
+      }
+    }
   };
 
   return (
@@ -96,7 +97,7 @@ const CreateArticle: React.FC = () => {
           height: "150px",
         }}
       />
-      <button onClick={handleClick}>Publier</button>
+      <button onClick={handlePublish}>Publier</button>
     </div>
   );
 };
