@@ -7,7 +7,7 @@ const CreateArticle: React.FC = () => {
 
   const apiUrl = process.env.REACT_APP_API_URL || "";
 
-  const handlePublish = async () => {
+  const handlePublish = async (): Promise<void> => {
     if (!title || !content) {
       alert("Veuillez remplir le titre et le contenu.");
       return;
@@ -23,7 +23,6 @@ const CreateArticle: React.FC = () => {
     }
 
     try {
-      // Récupérer le token JWT depuis localStorage
       const token = localStorage.getItem("token");
 
       if (!token) {
@@ -35,16 +34,21 @@ const CreateArticle: React.FC = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Ajoute le token JWT ici
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(articleData),
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          errorData.error || "Erreur lors de la publication de l'article."
-        );
+        const errorData: unknown = await response.json();
+        if (
+          typeof errorData === "object" &&
+          errorData !== null &&
+          "error" in errorData
+        ) {
+          throw new Error(String((errorData as { error: string }).error));
+        }
+        throw new Error("Erreur lors de la publication de l'article.");
       }
 
       alert("Article publié avec succès !");
@@ -53,13 +57,16 @@ const CreateArticle: React.FC = () => {
       setContent("");
     } catch (error) {
       console.error(error);
-
       if (error instanceof Error) {
         alert(error.message);
       } else {
         alert("Une erreur inconnue est survenue.");
       }
     }
+  };
+
+  const handleClick = (): void => {
+    void handlePublish();
   };
 
   return (
@@ -97,7 +104,7 @@ const CreateArticle: React.FC = () => {
           height: "150px",
         }}
       />
-      <button onClick={handlePublish}>Publier</button>
+      <button onClick={handleClick}>Publier</button>
     </div>
   );
 };
