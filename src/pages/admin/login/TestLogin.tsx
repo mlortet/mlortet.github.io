@@ -27,7 +27,6 @@ const Login: React.FC = () => {
     try {
       const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3001";
       const cleanApiUrl = apiUrl.endsWith("/") ? apiUrl.slice(0, -1) : apiUrl;
-      console.log("API URL utilisée :", cleanApiUrl);
 
       const response = await axios.post<LoginResponse>(`${cleanApiUrl}/login`, {
         email,
@@ -36,8 +35,6 @@ const Login: React.FC = () => {
 
       // Stocker le token JWT dans localStorage
       localStorage.setItem("token", response.data.token || "");
-
-      console.log("Connexion réussie :", response.data);
       navigate("/admin/dashboard");
     } catch (err) {
       setError("Identifiants incorrects");

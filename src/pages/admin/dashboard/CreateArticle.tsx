@@ -5,7 +5,8 @@ const CreateArticle: React.FC = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [content, setContent] = useState("");
 
-  const apiUrl = process.env.REACT_APP_API_URL || "";
+  const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3001";
+  const cleanApiUrl = apiUrl.endsWith("/") ? apiUrl.slice(0, -1) : apiUrl;
 
   const handlePublish = async () => {
     if (!title || !content) {
@@ -33,7 +34,7 @@ const CreateArticle: React.FC = () => {
       }
 
       // Effectuer la requête POST avec l'en-tête d'authentification
-      const response = await fetch(`${apiUrl}/api/articles`, {
+      const response = await fetch(`${cleanApiUrl}/api/articles`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

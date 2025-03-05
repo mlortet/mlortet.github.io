@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -9,7 +11,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-require("dotenv").config();
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
@@ -17,11 +18,6 @@ mongoose
   })
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
-
-// mongoose.connect("mongodb://127.0.0.1:27017/user", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
 
 app.use(
   cors({
@@ -88,7 +84,7 @@ app.post("/login", async (req, res) => {
     const token = jwt.sign(
       { id: user._id, email: user.email },
       process.env.JWT_SECRET, // Clé secrète stockée dans le fichier .env
-      { expiresIn: "1h" } // Expiration du token (1 heure)
+      { expiresIn: "5h" } // Expiration du token (5 heures)
     );
 
     res.json({
