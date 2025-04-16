@@ -6,6 +6,7 @@ const CreateArticle: React.FC = () => {
   const [content, setContent] = useState("");
 
   const apiUrl = process.env.REACT_APP_API_URL || "";
+  const cleanApiUrl = apiUrl.endsWith("/") ? apiUrl.slice(0, -1) : apiUrl;
 
   const handlePublish = async (): Promise<void> => {
     if (!title || !content) {
@@ -30,7 +31,7 @@ const CreateArticle: React.FC = () => {
         return;
       }
 
-      const response = await fetch(`${apiUrl}/api/articles`, {
+      const response = await fetch(`${cleanApiUrl}/api/articles`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
