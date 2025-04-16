@@ -14,7 +14,8 @@ const Actualites: React.FC = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3001";
+        const apiUrl = process.env.REACT_APP_API_URL!;
+        // || "http://localhost:3001"
         const cleanApiUrl = apiUrl.endsWith("/") ? apiUrl.slice(0, -1) : apiUrl;
         const response = await fetch(`${cleanApiUrl}/api/articles`);
 
