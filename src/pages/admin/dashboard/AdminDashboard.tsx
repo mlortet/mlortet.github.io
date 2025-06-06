@@ -27,10 +27,11 @@ const AdminDashboard: React.FC = () => {
         Gérer les articles
       </button>
       <button
-        onClick={() => alert("Option pour modifier une page spécifique")}
+        onClick={() => navigate("/admin/manage-info")}
         style={{ margin: "10px", padding: "10px 20px" }}
+        // redirect to contacts & allow to delete info
       >
-        Modifier des informations sur une page
+        Modifier des informations sur la page contact
       </button>
     </div>
   );
