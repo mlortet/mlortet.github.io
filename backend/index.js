@@ -31,7 +31,7 @@ mongoose
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://mlortet.github.io"],
+    origin: ["https://mlortet.github.io"],
     credentials: true,
   })
 );
